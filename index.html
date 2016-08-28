@@ -1,19 +1,61 @@
-<html data-ng-app="helloWorld">
+<html data-ng-app="listaTelefonica">
 
 <head>
-    <title>Hello World</title>
+    <title>Lista Telefonica</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        .jumbotron {
+            width: 400px;
+            text-align: center;
+            margin: 20 auto 0 auto;
+        }
+        
+        .table {
+            margin-top: 20px;
+        }
+        
+        .form-control {
+            margin-bottom: 5px;
+        }
+    </style>
     <script src="js/angular/angular.js"></script>
     <script>
-        angular.module("helloWorld",[]);
-        angular.module("helloWorld").controller("hellorWorldCtrl",function($scope){
-            $scope.message = "Hello World";
+        angular.module("listaTelefonica",[]);
+        angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope){
+            $scope.app = "Lista Telefonica";
+            $scope.contatos = [
+                {nome: "Pedro", telefone: "99998888"},
+                {nome: "Ana", telefone: "99998888"},
+                {nome: "Maria", telefone: "99998888"}
+            ];
+            $scope.adicionarContato = function(contato){
+                $scope.contatos.push(contato);
+                delete $scope.contato;
+            };
         });
-
     </script>
 </head>
 
-<body data-ng-controller="hellorWorldCtrl">
-    {{message}}
+<body data-ng-controller="listaTelefonicaCtrl">
+    <div class="jumbotron">
+        <h3>
+            {{app}}
+        </h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+            <tr data-ng-repeat="contato in contatos">
+                <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td>
+            </tr>
+        </table>
+        <hr/>
+        <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
+        <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
+        <button class="btn btn-primary btn-block" data-ng-click="adicionarContato(contato)">Adicionar <Contato></Contato></button>
+    </div>
 </body>
 
 </html>
